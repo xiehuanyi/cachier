@@ -14,6 +14,7 @@ def bypass_kwargs(request: pytest.FixtureRequest) -> Iterator[dict[str, bool]]:
     """Exercise both public ways to bypass cached results.
 
     Restore global caching after each case so other tests remain independent.
+
     """
     if request.param == "global":
         disable_caching()
@@ -29,6 +30,7 @@ def test_bypass_positional_only(bypass_kwargs: dict[str, bool]) -> None:
         """Add two values.
 
         The first value must be supplied positionally.
+
         """
         return left + right
 
@@ -42,6 +44,7 @@ def test_bypass_variadic_arguments(bypass_kwargs: dict[str, bool]) -> None:
         """Return the received positional and keyword arguments.
 
         No cache-key-only arguments should reach this function.
+
         """
         return args, kwargs
 
@@ -55,6 +58,7 @@ async def test_async_bypass_positional_only(bypass_kwargs: dict[str, bool]) -> N
         """Add two values asynchronously.
 
         The first value must be supplied positionally.
+
         """
         return left + right
 
@@ -69,6 +73,7 @@ async def test_async_bypass_variadic_arguments(bypass_kwargs: dict[str, bool]) -
         """Return the received positional and keyword arguments asynchronously.
 
         No cache-key-only arguments should reach this function.
+
         """
         return args, kwargs
 
@@ -82,6 +87,7 @@ def test_bypass_bound_method(bypass_kwargs: dict[str, bool]) -> None:
             """Add values with a positional-only argument.
 
             Keep the instance binding when the cache is bypassed.
+
             """
             return left + right
 
@@ -96,6 +102,7 @@ async def test_async_bypass_bound_method(bypass_kwargs: dict[str, bool]) -> None
             """Add values asynchronously with a positional-only argument.
 
             Keep the instance binding when the cache is bypassed.
+
             """
             return left + right
 
